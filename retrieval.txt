@@ -1,0 +1,23 @@
+from rank_bm25 import BM25Okapi
+import numpy as np
+import faiss
+
+class BM25Retriever:
+    def __init__(self, corpus):
+        self.corpus = [doc.split() for doc in corpus]
+        self.bm25 = BM25Okapi(self.corpus)
+
+    def retrieve(self, query, top_k=5):
+        scores = self.bm25.get_scores(query.split())
+        top_k_idx = np.argsort(scores)[::-1][:top_k]
+        return [self.corpus[i] for i in top_k_idx]
+
+class FAISSRetriever:
+    def __init__(self, embeddings):
+        dim = embeddings.shape[1]
+        self.index = faiss.IndexFlatL2(dim)
+        self.index.add(embeddings)
+
+    def search(self, query_vec, top_k=5):
+        distances, indices = self.index.search(query_vec, top_k)
+        return indices, distances

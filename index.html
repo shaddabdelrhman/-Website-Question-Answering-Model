@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple QA Website</title>
+    <link rel="stylesheet" href="stylee.css"> <!-- Link to the CSS file -->
+</head>
+<body>
+    <h1>Ask a Question</h1>
+    <input type="text" id="question" placeholder="Type your question here...">
+    <button onclick="ask()">Submit</button>
+
+    <h2>Answer:</h2>
+    <p id="answer"></p>
+
+    <script>
+        async function ask() {
+            const question = document.getElementById("question").value;
+            const response = await fetch("http://127.0.0.1:5000/ask", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ question })
+            });
+            const data = await response.json();
+            document.getElementById("answer").innerText = data.answer;
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
+
+def load_arabic_gpt2():
+    """Load the AraGPT2 model for Arabic text generation."""
+    model_name = "aubmindlab/aragpt2-base"
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = AutoModelForCausalLM.from_pretrained(model_name)
+    return pipeline("text-generation", model=model, tokenizer=tokenizer)
+
+def generate_answer(model_pipeline, question, context, max_length=100):
+    """Generate an Arabic answer from context."""
+    prompt = f"سؤال: {question}\nسياق: {context}\nإجابة:"
+    result = model_pipeline(prompt, max_length=max_length, truncation=True)
+    return result[0]["generated_text"]
