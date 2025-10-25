@@ -86,4 +86,5 @@ It accepts an Arabic question and returns either:
 **🧪 Evaluation**	                evaluate, datasets
 **🌐 Deployment**                   Flask / FastAPI (optional)
 # **✅ Summary**
-This project demonstrates a dual-model Arabic QA system — combining extractive reasoning (Arabic BERT) and generative fluency (AraGPT2) — to deliver contextually rich answers from real-world Arabic sports news.
+This project demonstrates a dual-model Arabic QA system combining extractive reasoning (Arabic BERT) and generative fluency (AraGPT2) to deliver contextually rich answers from real-world Arabic sports news.
+
